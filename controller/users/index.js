@@ -7,6 +7,14 @@ module.exports = {
       utils.checkStatus({ req, res, result });
     },
   },
+  // LOGIN USER
+  post_login: {
+    method: "post",
+    action: async (req, res) => {
+      const result = await actions.users.LOGIN_USER.run(req);
+      utils.checkStatus({ req, res, result });
+    },
+  },
   // ADD NEW USER BY ADMIN
   post_: {
     method: "post",

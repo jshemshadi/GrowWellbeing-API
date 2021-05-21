@@ -2,9 +2,34 @@ const fs = require("fs");
 const path = require("path");
 const validator = require("validator");
 const axios = require("axios");
+const crypto = require("crypto");
 var CryptoJS = require("crypto-js");
 
 const { ObjectID } = require("mongodb");
+
+const thirdParty = (id) => {
+  const date = new Date();
+
+  let ret = id;
+  ret = ret + date.getFullYear();
+  ret = ret + date.getMonth();
+  ret = ret + date.getDate();
+  ret = ret + date.getHours();
+  ret = ret + date.getMinutes();
+  ret = ret + date.getSeconds();
+  ret = ret + date.getMilliseconds();
+
+  return ret;
+};
+const generateRandom = (type = "int") => {
+  const rand = Math.random();
+  return type === "int" ? Math.floor(rand) : rand;
+};
+const generateRandomInRange = (min = 0, max = 100) => {
+  const ctrl = max - min + 1;
+  const rnd = generateRandom();
+  return Math.floor(rnd * ctrl) + min;
+};
 
 module.exports = {
   requireDirectory: (root, result = {}) => {
@@ -24,6 +49,8 @@ module.exports = {
 
     return result;
   },
+
+  // REQ & RES
   validateType: (type, value, required) => {
     switch (type) {
       case "string":
@@ -134,7 +161,20 @@ module.exports = {
     );
   },
 
+  // TOKEN & GUID
   generateGUID: () => {
     return uuid.v4();
+  },
+  generateNewToken: (length, id) => {
+    const len = 2 * length;
+    const start = generateRandomInRange(256 - len, 256 + len);
+    const rndStr = crypto.randomBytes(512).toString("hex");
+    const baseKey = rndStr.substring(start, start + length);
+    return baseKey + thirdParty(id);
+  },
+
+  // DATE & TIME
+  addHours: (date, hour) => {
+    return new Date(date.getTime() + hour * 3600000);
   },
 };

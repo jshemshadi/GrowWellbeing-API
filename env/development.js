@@ -17,6 +17,7 @@ module.exports = {
     type: "JSON",
     value: {
       passwordKey: process.env.PASSWORD_KEY || "password_key",
+      tokenExpireHours: process.env.TOKEN_EXPIRE_HOURS || "1",
     },
   },
 };
