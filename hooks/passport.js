@@ -9,6 +9,9 @@ module.exports = async (app) => {
 
       try {
         const user = await users.findOne({
+          "status.isTrash": false,
+          "status.isSuspend": false,
+          "status.isActive": true,
           "token.code": token,
           "token.expiredAt": { $gt: now },
         });

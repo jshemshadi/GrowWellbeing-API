@@ -134,4 +134,8 @@ module.exports = {
   addNewUser: async ({ user }) => {
     return users.insertOne(user);
   },
+
+  updateUser: async ({ user }) => {
+    return users.updateOne({ guid: user.guid }, { $set: user });
+  },
 };

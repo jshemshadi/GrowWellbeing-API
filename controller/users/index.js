@@ -40,4 +40,13 @@ module.exports = {
       utils.checkStatus({ req, res, result });
     },
   },
+
+  // UPDATE A USER BY ADMIN
+  "patch_:userGUID/profile": {
+    method: "patch",
+    action: async (req, res) => {
+      const result = await actions.users.UPDATE_A_USER.run(req);
+      utils.checkStatus({ req, res, result });
+    },
+  },
 };

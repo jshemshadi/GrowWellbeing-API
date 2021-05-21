@@ -24,7 +24,7 @@ module.exports = async () => {
       status: {
         isTrash: false,
         isSuspend: false,
-        isActive: false,
+        isActive: true,
       },
       token: {
         code: "EXPIRED_TOKEN",
