@@ -7,4 +7,12 @@ module.exports = {
       utils.checkStatus({ req, res, result });
     },
   },
+  // ADD NEW USER BY ADMIN
+  post_: {
+    method: "post",
+    action: async (req, res) => {
+      const result = await actions.users.ADD_NEW_USER.run(req, req.body);
+      utils.checkStatus({ req, res, result });
+    },
+  },
 };

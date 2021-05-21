@@ -1,7 +1,7 @@
 const userModel = require("../../models/User");
 
 module.exports = {
-  anonymouse: true,
+  permissions: [permissions.isAdmin],
   inputSchema: {
     firstName: {
       type: "string",
@@ -27,9 +27,18 @@ module.exports = {
       type: "string",
       required: true,
     },
+    roles: {
+      type: "array",
+      items: {
+        type: "string",
+        enum: Object.values(userModel.statics.roles),
+      },
+      required: true,
+    },
   },
   exec: async (params, req) => {
-    const { firstName, lastName, mobile, email, username, password } = params;
+    const { firstName, lastName, mobile, email, username, password, roles } =
+      params;
 
     // FIND DUPLICATE USER
     const duplicateUser = await services.users.findDuplicate({
@@ -61,7 +70,7 @@ module.exports = {
       username,
       password: hashPassword,
       guid,
-      roles: [userModel.statics.roles.User],
+      roles,
       status: {
         isTrash: false,
         isSuspend: false,
