@@ -15,6 +15,8 @@ module.exports = {
   },
   var: {
     type: "JSON",
-    value: {},
+    value: {
+      passwordKey: process.env.PASSWORD_KEY || "password_key",
+    },
   },
 };

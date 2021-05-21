@@ -11,6 +11,7 @@ module.exports = async (app) => {
 
       Object.keys(ctrl).forEach((route) => {
         const { method, action } = ctrl[route];
+        route = route.split("_")[1];
 
         app[method](`/${name}/${route}`, action);
       });

@@ -7,13 +7,16 @@
       "env": {
         "NODE_ENV": "development",
         "PORT": "8000",
+
         "MONGO_URL": "mongodb://localhost:27017/",
         "MONGO_DB_NAME": "Grow_Wellbeing_dev",
         "MONGO_USER": "",
         "MONGO_PASS": "",
         "MONGO_AUTH_SOURCE": "",
         "REDIS_PORT": "5379",
-        "REDIS_HOST": "127.0.0.1"
+        "REDIS_HOST": "127.0.0.1",
+
+        "PASSWORD_KEY": ""
       }
     }
   ]

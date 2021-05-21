@@ -19,7 +19,6 @@ module.exports = async (app, Io) => {
   global.env = require("./env");
   global.permissions = utils.requireDirectory(path.resolve("./permissions"));
   global.actions = actions();
-  global.services = utils.requireDirectory(path.resolve("./services"));
   global.systemError = require("./systemError");
   global.notificationsText = require("./notificationsText");
   global.socketSender = socketSender;
@@ -30,6 +29,7 @@ module.exports = async (app, Io) => {
   global.io = Io;
   global.socketsList = [];
   await db();
+  global.services = utils.requireDirectory(path.resolve("./services"));
   await dbInit();
   await migration();
   await redis();

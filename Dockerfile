@@ -17,6 +17,7 @@ COPY . .
 
 ENV NODE_ENV="development"
 ENV PORT=8000
+
 ENV MONGO_URL="mongodb://localhost:27017/"
 ENV MONGO_DB_NAME="Grow_Wellbeing_dev"
 ENV MONGO_USER=
@@ -24,6 +25,8 @@ ENV MONGO_PASS=
 ENV MONGO_AUTH_SOURCE=
 ENV REDIS_PORT=5379
 ENV REDIS_HOST=127.0.0.1
+
+ENV PASSWORD_KEY=
 
 EXPOSE 8000
 CMD [ "node", "appStarter.js" ]

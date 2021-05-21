@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const validator = require("validator");
 const axios = require("axios");
+var CryptoJS = require("crypto-js");
 
 const { ObjectID } = require("mongodb");
 
@@ -84,6 +85,24 @@ module.exports = {
 
     return true;
   },
+  checkStatus: ({ req, res, result }) => {
+    if (result) {
+      if (result.isSuccess) {
+        res.status(200);
+      } else if (result.unauthorized) {
+        res.status(401);
+      } else {
+        res.status(406);
+      }
+      res.send(result);
+    } else {
+      res.status(400).json({
+        msg: "EMPTY_RESULT",
+      });
+    }
+  },
+
+  // AXIOS
   get: async (url, options) => {
     const { data } = await axios.get(url, options || {});
 
@@ -93,5 +112,29 @@ module.exports = {
     const { data } = await axios.post(url, params || {}, options || {});
 
     return data;
+  },
+
+  // PASSWORD
+  isStrongPassword: ({ password }) => {
+    // (?=.*\d)        -> SHOULD CONTAIN AT LEAST ONE DIGIT (contain at least 1 number)
+    // (?=.*[a-z])     -> SHOULD CONTAIN AT LEAST ONE LOWER CASE (contain at least 1 lowercase character (a-z))
+    // (?=.*[A-Z])     -> SHOULD CONTAIN AT LEAST ONE UPPER CASE (contain at least 1 uppercase character (A-Z))
+    // [a-zA-Z0-9]     -> SHOULD CONTAIN FROM THE MENTIONED CHARACTERS (contains only 0-9a-zA-Z)
+    // {8,}            -> SHOULD CONTAIN AT LEAST 8 CHARACTERS (Contain at least 8 characters)
+
+    const reg = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}/;
+    return reg.test(password);
+  },
+  createHashPassword: ({ password }) => {
+    return CryptoJS.AES.encrypt(password, env.var.passwordKey).toString();
+  },
+  decryptHashPassword: ({ password }) => {
+    return CryptoJS.AES.decrypt(password, env.var.passwordKey).toString(
+      CryptoJS.enc.Utf8
+    );
+  },
+
+  generateGUID: () => {
+    return uuid.v4();
   },
 };

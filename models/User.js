@@ -42,6 +42,9 @@ module.exports = {
         password: {
           bsonType: "string",
         },
+        guid: {
+          bsonType: "string",
+        },
         status: {
           bsonType: "object",
           properties: {
