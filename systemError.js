@@ -8,6 +8,8 @@ module.exports = {
     cannotUpdateUser: "CANNOT_UPDATE_USER",
     duplicateUser: "DUPLICATE_USER",
     invalidVerificationCode: "INVALID_VERIFICATION_CODE",
+    notValidEmaiAddress: "NOT_VALID_EMAIL_ADDRESS",
+    notValidMobileNumber: "NOT_VALID_MOBILE_NUMBER",
     passwordNotStrong: "PASSWORD_NOT_STRONG",
   },
 };

@@ -31,6 +31,17 @@ module.exports = {
   exec: async (params, req) => {
     const { firstName, lastName, mobile, email, username, password } = params;
 
+    email = email.trim();
+    const isValidEmail = utils.validateEmail({ email });
+    if (!isValidEmail) {
+      throw new Error(systemError.user.notValidEmaiAddress);
+    }
+
+    const isValidMobile = utils.validateMobile({ mobile });
+    if (!isValidMobile) {
+      throw new Error(systemError.user.notValidMobileNumber);
+    }
+
     // FIND DUPLICATE USER
     const duplicateUser = await services.users.findDuplicate({
       username,

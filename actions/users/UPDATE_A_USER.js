@@ -60,6 +60,17 @@ module.exports = {
 
     roles = _.uniq(roles);
 
+    email = email.trim();
+    const isValidEmail = utils.validateEmail({ email });
+    if (!isValidEmail) {
+      throw new Error(systemError.user.notValidEmaiAddress);
+    }
+
+    const isValidMobile = utils.validateMobile({ mobile });
+    if (!isValidMobile) {
+      throw new Error(systemError.user.notValidMobileNumber);
+    }
+
     const targetUser = await users.findOne({ guid: userGUID });
     if (!targetUser) {
       throw new Error(systemError.users.cannotFindUser);

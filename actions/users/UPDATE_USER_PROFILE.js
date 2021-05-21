@@ -37,6 +37,17 @@ module.exports = {
     } = params;
     const { user } = req;
 
+    email = email.trim();
+    const isValidEmail = utils.validateEmail({ email });
+    if (!isValidEmail) {
+      throw new Error(systemError.user.notValidEmaiAddress);
+    }
+
+    const isValidMobile = utils.validateMobile({ mobile });
+    if (!isValidMobile) {
+      throw new Error(systemError.user.notValidMobileNumber);
+    }
+
     let needUpdate = false;
 
     if (firstName.length && firstName !== user.firstName) {
