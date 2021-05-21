@@ -13,7 +13,11 @@ module.exports = async (app) => {
         const { method, action } = ctrl[route];
         route = route.split("_")[1];
 
-        app[method](`/${name}/${route}`, action);
+        if (route.length) {
+          app[method](`/${name}/${route}`, action);
+        } else {
+          app[method](`/${name}`, action);
+        }
       });
     }
   });

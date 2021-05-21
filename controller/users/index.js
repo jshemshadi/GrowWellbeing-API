@@ -25,10 +25,18 @@ module.exports = {
     },
   },
   // GET A USER BY ADMIN
-  "get_:userGUID": {
+  "get_:userGUID/profile": {
     method: "get",
     action: async (req, res) => {
       const result = await actions.users.GET_A_USER.run(req);
+      utils.checkStatus({ req, res, result });
+    },
+  },
+  // GET A USER BY ADMIN
+  get_profile: {
+    method: "get",
+    action: async (req, res) => {
+      const result = await actions.users.GET_USER_PROFILE.run(req);
       utils.checkStatus({ req, res, result });
     },
   },

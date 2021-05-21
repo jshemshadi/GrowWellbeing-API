@@ -123,7 +123,7 @@ const runner = async (action, req, parameters) => {
       var result = validateInput(action.inputSchema, parameters, null, true);
     }
 
-    const executionResult = await action.exec(parameters, req.user);
+    const executionResult = await action.exec(parameters, req);
 
     return {
       isSuccess: true,
