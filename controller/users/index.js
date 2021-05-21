@@ -15,11 +15,20 @@ module.exports = {
       utils.checkStatus({ req, res, result });
     },
   },
+
   // GET USERS LIST BY ADMIN
   get_: {
     method: "get",
     action: async (req, res) => {
       const result = await actions.users.GET_USERS.run(req);
+      utils.checkStatus({ req, res, result });
+    },
+  },
+  // GET A USER BY ADMIN
+  "get_:userGUID": {
+    method: "get",
+    action: async (req, res) => {
+      const result = await actions.users.GET_A_USER.run(req);
       utils.checkStatus({ req, res, result });
     },
   },

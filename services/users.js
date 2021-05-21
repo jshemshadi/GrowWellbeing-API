@@ -95,6 +95,41 @@ module.exports = {
 
     return { totalCount, users: result };
   },
+  getUser: async ({ userGUID }) => {
+    const user = await users.findOne({ guid: userGUID });
+    if (!user) {
+      return null;
+    }
+
+    const {
+      createdAt,
+      updatedAt,
+      lastSeen,
+      firstName,
+      lastName,
+      mobile,
+      email,
+      avatar,
+      username,
+      status,
+      guid,
+      roles,
+    } = user;
+    return {
+      createdAt,
+      updatedAt,
+      lastSeen,
+      firstName,
+      lastName,
+      mobile,
+      email,
+      avatar,
+      username,
+      status,
+      guid,
+      roles,
+    };
+  },
 
   addNewUser: async ({ user }) => {
     return users.insertOne(user);
