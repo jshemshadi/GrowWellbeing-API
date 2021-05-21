@@ -3,7 +3,7 @@ module.exports = {
   post_register: {
     method: "post",
     action: async (req, res) => {
-      const result = await actions.users.REGISTER_NEW_USER.run(req, req.body);
+      const result = await actions.users.REGISTER_NEW_USER.run(req);
       utils.checkStatus({ req, res, result });
     },
   },
@@ -11,7 +11,15 @@ module.exports = {
   post_: {
     method: "post",
     action: async (req, res) => {
-      const result = await actions.users.ADD_NEW_USER.run(req, req.body);
+      const result = await actions.users.ADD_NEW_USER.run(req);
+      utils.checkStatus({ req, res, result });
+    },
+  },
+  // GET USERS LIST BY ADMIN
+  get_: {
+    method: "get",
+    action: async (req, res) => {
+      const result = await actions.users.GET_USERS.run(req);
       utils.checkStatus({ req, res, result });
     },
   },

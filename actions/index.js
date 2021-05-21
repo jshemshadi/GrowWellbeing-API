@@ -154,7 +154,8 @@ module.exports = () => {
           if (actionFile !== ".DS_Store") {
             const action = require(path.join(folder, actionFile));
 
-            action.run = (req, params) => {
+            action.run = (req) => {
+              const params = { ...req.body, ...req.params, ...req.query };
               return runner(action, req, params);
             };
             const actionName = path.parse(actionFile).name;
