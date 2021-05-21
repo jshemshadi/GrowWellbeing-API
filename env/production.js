@@ -24,6 +24,12 @@ module.exports = {
       mailSenderSecure: process.env.MAIL_SENDER_SECURE,
       mailSenderUsername: process.env.MAIN_SENDER_USERNAME,
       mailSenderPassword: process.env.MAIL_SENDER_PASSWORD,
+
+      smsGetTokenUrl: process.env.SMS_GET_TOKEN_URL,
+      smsUserApiKey: process.env.SMS_USER_API_KEY,
+      smsSecretKey: process.env.SMS_SECRET_KEY,
+      smsBaseUrl: process.env.SMS_BASE_URL,
+      smsLineNumber: process.env.SMS_LINE_NUMBER,
     },
   },
 };

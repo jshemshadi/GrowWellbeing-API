@@ -23,7 +23,13 @@
         "MAIL_SENDER_PORT": "",
         "MAIL_SENDER_SECURE": "",
         "MAIN_SENDER_USERNAME": "",
-        "MAIL_SENDER_PASSWORD": ""
+        "MAIL_SENDER_PASSWORD": "",
+
+        "SMS_GET_TOKEN_URL": "",
+        "SMS_USER_API_KEY": "",
+        "SMS_SECRET_KEY": "",
+        "SMS_BASE_URL": "",
+        "SMS_LINE_NUMBER": ""
       }
     }
   ]
