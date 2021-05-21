@@ -32,7 +32,7 @@ module.exports = {
       utils.checkStatus({ req, res, result });
     },
   },
-  // GET A USER BY ADMIN
+  // GET PROFILE
   get_profile: {
     method: "get",
     action: async (req, res) => {
@@ -46,6 +46,14 @@ module.exports = {
     method: "patch",
     action: async (req, res) => {
       const result = await actions.users.UPDATE_A_USER.run(req);
+      utils.checkStatus({ req, res, result });
+    },
+  },
+  // UPDATE PROFILE
+  patch_profile: {
+    method: "patch",
+    action: async (req, res) => {
+      const result = await actions.users.UPDATE_USER_PROFILE.run(req);
       utils.checkStatus({ req, res, result });
     },
   },
