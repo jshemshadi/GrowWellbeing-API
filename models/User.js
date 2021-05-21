@@ -1,4 +1,12 @@
+const roles = {
+  Admin: "admin",
+  User: "user",
+};
+
 module.exports = {
+  statics: {
+    roles,
+  },
   validator: {
     $jsonSchema: {
       bsonType: "object",
@@ -7,6 +15,8 @@ module.exports = {
         "lastName",
         "mobile",
         "email",
+        "guid",
+        "roles",
         "username",
         "password",
         "status",
@@ -44,6 +54,13 @@ module.exports = {
         },
         guid: {
           bsonType: "string",
+        },
+        roles: {
+          bsonType: "array",
+          items: {
+            bsonType: "string",
+            enum: Object.values(roles),
+          },
         },
         status: {
           bsonType: "object",

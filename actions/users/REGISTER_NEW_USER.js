@@ -1,3 +1,5 @@
+const userModel = require("../../models/User");
+
 module.exports = {
   anonymouse: true,
   inputSchema: {
@@ -60,6 +62,7 @@ module.exports = {
       username,
       password: hashPassword,
       guid,
+      roles: [userModel.statics.roles.User],
       status: {
         isTrash: false,
         isSuspend: false,
@@ -84,6 +87,7 @@ module.exports = {
       mobile: resultMobile,
       email: resultEmail,
       guid: resultGuid,
+      roles: resultRoles,
       username: resultUsername,
     } = result.ops[0];
     return {
@@ -93,6 +97,7 @@ module.exports = {
       mobile: resultMobile,
       email: resultEmail,
       guid: resultGuid,
+      roles: resultRoles,
       username: resultUsername,
     };
   },
