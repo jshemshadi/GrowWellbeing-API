@@ -19,6 +19,8 @@
         "PASSWORD_KEY": "password_key",
         "TOKEN_EXPIRE_HOURS": 1,
 
+        "MAX_FILE_SIZE": "20 * 1024 * 1024",
+
         "MAIL_SENDER_HOST": "",
         "MAIL_SENDER_PORT": "",
         "MAIL_SENDER_SECURE": "",

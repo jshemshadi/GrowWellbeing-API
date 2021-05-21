@@ -22,6 +22,9 @@ module.exports = {
     password: {
       type: "string",
     },
+    file: {
+      type: "string",
+    },
     roles: {
       type: "array",
       items: {
@@ -47,12 +50,15 @@ module.exports = {
       mobile = "",
       email = "",
       password = "",
+      file = "",
       roles = [],
       isTrash,
       isSuspend,
       isActive,
     } = params;
     const { users } = db;
+
+    roles = _.uniq(roles);
 
     const targetUser = await users.findOne({ guid: userGUID });
     if (!targetUser) {
@@ -93,20 +99,24 @@ module.exports = {
         needUpdate = true;
       }
     }
+    if (file.length && file !== targetUser.avatar) {
+      targetUser.avatar = file;
+      needUpdate = true;
+    }
     if (roles.length && !_.isEqual(roles, targetUser.roles)) {
       targetUser.roles = roles;
       needUpdate = true;
     }
     if (!_.isUndefined(isTrash)) {
-      targetUser.status.isTrash = isTrash;
+      targetUser.status.isTrash = utils.toBoolean(isTrash);
       needUpdate = true;
     }
     if (!_.isUndefined(isSuspend)) {
-      targetUser.status.isSuspend = isSuspend;
+      targetUser.status.isSuspend = utils.toBoolean(isSuspend);
       needUpdate = true;
     }
     if (!_.isUndefined(isActive)) {
-      targetUser.status.isActive = isActive;
+      targetUser.status.isActive = utils.toBoolean(isActive);
       needUpdate = true;
     }
 

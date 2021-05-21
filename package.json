@@ -23,6 +23,7 @@
     "mjml": "^4.9.3",
     "moment": "^2.27.0",
     "mongodb": "^3.5.9",
+    "multer": "^1.4.2",
     "nodemailer": "^6.6.0",
     "passport": "^0.4.1",
     "passport-http-bearer": "^1.0.1",

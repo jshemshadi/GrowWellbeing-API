@@ -32,6 +32,7 @@ const generateRandomInRange = (min = 0, max = 100) => {
 };
 
 module.exports = {
+  // FILE & FOLDER
   requireDirectory: (root, result = {}) => {
     const directories = fs.readdirSync(root);
 
@@ -48,6 +49,14 @@ module.exports = {
     });
 
     return result;
+  },
+  addExtensionToUploadedFile: (file) => {
+    const { path: filePath, originalname } = file;
+    const oldPath = path.join(__dirname, filePath);
+    const extension = path.extname(originalname);
+    const newPath = path.join(__dirname, filePath + extension);
+    fs.renameSync(oldPath, newPath);
+    return filePath + extension;
   },
 
   // CONVERTOR
@@ -122,8 +131,10 @@ module.exports = {
       if (result.isSuccess) {
         res.status(200);
       } else if (result.unauthorized) {
+        utils.deleteFailedRequestFiles(req);
         res.status(401);
       } else {
+        utils.deleteFailedRequestFiles(req);
         res.status(406);
       }
       res.send(result);
@@ -131,6 +142,15 @@ module.exports = {
       res.status(400).json({
         msg: "EMPTY_RESULT",
       });
+    }
+  },
+  deleteFailedRequestFiles: (req) => {
+    const { file } = req.body;
+    if (file) {
+      try {
+        const filePath = path.join(__dirname, file);
+        fs.unlinkSync(filePath);
+      } catch (error) {}
     }
   },
 

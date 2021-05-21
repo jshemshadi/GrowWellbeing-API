@@ -15,9 +15,18 @@ module.exports = {
     email: {
       type: "string",
     },
+    file: {
+      type: "string",
+    },
   },
   exec: async (params, req) => {
-    let { firstName = "", lastName = "", mobile = "", email = "" } = params;
+    let {
+      firstName = "",
+      lastName = "",
+      mobile = "",
+      email = "",
+      file = "",
+    } = params;
     const { user } = req;
 
     let needUpdate = false;
@@ -36,6 +45,10 @@ module.exports = {
     }
     if (email.length && email !== user.email) {
       user.email = email;
+      needUpdate = true;
+    }
+    if (file.length && file !== user.avatar) {
+      user.avatar = file;
       needUpdate = true;
     }
 
