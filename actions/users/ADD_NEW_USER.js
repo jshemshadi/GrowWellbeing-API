@@ -80,6 +80,10 @@ module.exports = {
         code: "EXPIRED_TOKEN",
         expiredAt: now,
       },
+      verification: {
+        code: "EXPIRED_CODE",
+        expiredAt: now,
+      },
     };
 
     // INSERT THE USER IN DATA BASE

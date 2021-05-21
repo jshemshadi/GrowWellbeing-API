@@ -87,6 +87,17 @@ module.exports = {
             },
           },
         },
+        verification: {
+          bsonType: "object",
+          properties: {
+            code: {
+              bsonType: "string",
+            },
+            expiredAt: {
+              bsonType: "date",
+            },
+          },
+        },
       },
     },
   },

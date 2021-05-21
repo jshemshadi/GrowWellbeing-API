@@ -18,6 +18,7 @@ module.exports = {
     value: {
       passwordKey: process.env.PASSWORD_KEY || "password_key",
       tokenExpireHours: process.env.TOKEN_EXPIRE_HOURS || "1",
+      verificationExpireHours: process.env.VERIFICATION_EXPIRE_HOURS || "1",
 
       mailSenderHost: process.env.MAIL_SENDER_HOST || "smtp.gmail.com",
       mailSenderPort: process.env.MAIL_SENDER_PORT || "587",

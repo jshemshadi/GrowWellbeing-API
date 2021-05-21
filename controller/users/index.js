@@ -31,6 +31,22 @@ module.exports = {
       utils.checkStatus({ req, res, result });
     },
   },
+  // REQUEST RESET PASSWORD
+  post_requestResetPassword: {
+    method: "post",
+    action: async (req, res) => {
+      const result = await actions.users.REQUEST_RESET_PASSWORD.run(req);
+      utils.checkStatus({ req, res, result });
+    },
+  },
+  // RESET PASSWORD
+  post_resetPassword: {
+    method: "post",
+    action: async (req, res) => {
+      const result = await actions.users.RESET_PASSWORD.run(req);
+      utils.checkStatus({ req, res, result });
+    },
+  },
 
   // GET USERS LIST BY ADMIN
   get_: {
