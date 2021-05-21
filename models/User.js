@@ -98,6 +98,17 @@ module.exports = {
             },
           },
         },
+        failedLogin: {
+          bsonType: "object",
+          properties: {
+            count: {
+              bsonType: "int",
+            },
+            lastTry: {
+              bsonType: "date",
+            },
+          },
+        },
       },
     },
   },

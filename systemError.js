@@ -11,5 +11,6 @@ module.exports = {
     notValidEmaiAddress: "NOT_VALID_EMAIL_ADDRESS",
     notValidMobileNumber: "NOT_VALID_MOBILE_NUMBER",
     passwordNotStrong: "PASSWORD_NOT_STRONG",
+    tryAgainInAFewMinutes: "TRY_AGAIN_IN_A_FEW_MINUTES",
   },
 };

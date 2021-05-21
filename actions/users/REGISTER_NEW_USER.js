@@ -29,7 +29,7 @@ module.exports = {
     },
   },
   exec: async (params, req) => {
-    const { firstName, lastName, mobile, email, username, password } = params;
+    let { firstName, lastName, mobile, email, username, password } = params;
 
     email = email.trim();
     const isValidEmail = utils.validateEmail({ email });
@@ -86,6 +86,7 @@ module.exports = {
         code: "EXPIRED_CODE",
         expiredAt: now,
       },
+      failedLogin: { count: 0, lastTry: now },
     };
 
     // INSERT THE USER IN DATA BASE

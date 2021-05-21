@@ -37,7 +37,7 @@ module.exports = {
     },
   },
   exec: async (params, req) => {
-    const { firstName, lastName, mobile, email, username, password, roles } =
+    let { firstName, lastName, mobile, email, username, password, roles } =
       params;
 
     email = email.trim();
@@ -95,6 +95,7 @@ module.exports = {
         code: "EXPIRED_CODE",
         expiredAt: now,
       },
+      failedLogin: { count: 0, lastTry: now },
     };
 
     // INSERT THE USER IN DATA BASE

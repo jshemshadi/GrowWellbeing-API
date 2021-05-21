@@ -221,4 +221,7 @@ module.exports = {
   addHours: (date, hour) => {
     return new Date(date.getTime() + hour * 3600000);
   },
+  addMinutes: (date, minutes) => {
+    return new Date(date.getTime() + minutes * 60000);
+  },
 };

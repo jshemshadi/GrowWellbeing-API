@@ -19,6 +19,8 @@
         "PASSWORD_KEY": "password_key",
         "TOKEN_EXPIRE_HOURS": 1,
         "VERIFICATION_EXPIRE_HOURS": 1,
+        "MAX_FAILED_LOGIN_MINUTES": 10,
+        "MAX_FAILED_LOGIN_COUNT": 3,
 
         "MAX_FILE_SIZE": "20 * 1024 * 1024",
 

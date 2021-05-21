@@ -19,6 +19,8 @@ module.exports = {
       passwordKey: process.env.PASSWORD_KEY,
       tokenExpireHours: process.env.TOKEN_EXPIRE_HOURS,
       verificationExpireHours: process.env.VERIFICATION_EXPIRE_HOURS,
+      maxFailedLoginCount: process.env.MAX_FAILED_LOGIN_COUNT,
+      maxFailedLoginMinutes: process.env.MAX_FAILED_LOGIN_MINUTES,
 
       mailSenderHost: process.env.MAIL_SENDER_HOST,
       mailSenderPort: process.env.MAIL_SENDER_PORT,
