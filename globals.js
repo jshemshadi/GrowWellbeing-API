@@ -1,0 +1,38 @@
+const fs = require("fs");
+const path = require("path");
+const lodash = require("lodash");
+const utils = require("./utils");
+const actions = require("./actions");
+const controller = require("./controller");
+const db = require("./hooks/db");
+const redis = require("./hooks/redis");
+const uuid = require("uuid");
+const dbInit = require("./hooks/dbInit");
+const migration = require("./hooks/migration");
+const passport = require("./hooks/passport");
+const socketSender = require("./middleware/socketSender");
+const moment = require("moment");
+
+module.exports = async (app, Io) => {
+  global._ = lodash;
+  global.utils = utils;
+  global.env = require("./env");
+  global.permissions = utils.requireDirectory(path.resolve("./permissions"));
+  global.actions = actions();
+  global.services = utils.requireDirectory(path.resolve("./services"));
+  global.systemError = require("./systemError");
+  global.notificationsText = require("./notificationsText");
+  global.socketSender = socketSender;
+  global.moment = moment;
+  global.path = path;
+  global.fs = fs;
+  global.uuid = uuid;
+  global.io = Io;
+  global.socketsList = [];
+  await db();
+  await dbInit();
+  await migration();
+  await redis();
+  await passport(app);
+  controller(app);
+};
