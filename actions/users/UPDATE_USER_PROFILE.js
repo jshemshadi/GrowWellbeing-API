@@ -18,7 +18,10 @@ module.exports = {
     file: {
       type: "string",
     },
-    password: {
+    oldPassword: {
+      type: "string",
+    },
+    newPassword: {
       type: "string",
     },
   },
@@ -29,7 +32,8 @@ module.exports = {
       mobile = "",
       email = "",
       file = "",
-      password = "",
+      oldPassword = "",
+      newPassword = "",
     } = params;
     const { user } = req;
 
@@ -55,17 +59,24 @@ module.exports = {
       user.avatar = file;
       needUpdate = true;
     }
-    if (password.length) {
-      // CHECK PASSWORD
-      const isStrongPassword = utils.isStrongPassword({ password });
-      if (!isStrongPassword) {
-        throw new Error(systemError.users.passwordNotStrong);
-      }
-
-      const oldPassword = utils.decryptHashPassword({
+    if (
+      oldPassword.length &&
+      newPassword.length &&
+      oldPassword !== newPassword
+    ) {
+      const userOldPassword = utils.decryptHashPassword({
         password: user.password,
       });
-      if (password !== oldPassword) {
+
+      if (oldPassword === userOldPassword) {
+        // CHECK PASSWORD
+        const isStrongPassword = utils.isStrongPassword({
+          password: newPassword,
+        });
+        if (!isStrongPassword) {
+          throw new Error(systemError.users.passwordNotStrong);
+        }
+
         const hashPassword = utils.createHashPassword({ password });
         user.password = hashPassword;
         needUpdate = true;
