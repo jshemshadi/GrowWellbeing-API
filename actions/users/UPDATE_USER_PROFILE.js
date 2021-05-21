@@ -18,6 +18,9 @@ module.exports = {
     file: {
       type: "string",
     },
+    password: {
+      type: "string",
+    },
   },
   exec: async (params, req) => {
     let {
@@ -26,6 +29,7 @@ module.exports = {
       mobile = "",
       email = "",
       file = "",
+      password = "",
     } = params;
     const { user } = req;
 
@@ -50,6 +54,22 @@ module.exports = {
     if (file.length && file !== user.avatar) {
       user.avatar = file;
       needUpdate = true;
+    }
+    if (password.length) {
+      // CHECK PASSWORD
+      const isStrongPassword = utils.isStrongPassword({ password });
+      if (!isStrongPassword) {
+        throw new Error(systemError.users.passwordNotStrong);
+      }
+
+      const oldPassword = utils.decryptHashPassword({
+        password: user.password,
+      });
+      if (password !== oldPassword) {
+        const hashPassword = utils.createHashPassword({ password });
+        user.password = hashPassword;
+        needUpdate = true;
+      }
     }
 
     if (needUpdate) {
