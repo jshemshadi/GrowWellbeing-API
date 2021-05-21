@@ -5,14 +5,15 @@ module.exports = async (app) => {
   passport.use(
     new BearerStrategy(async (token, done) => {
       const { users } = db;
+      const now = new Date();
+
       try {
         const user = await users.findOne({
           "token.code": token,
+          "token.expiredAt": { $gt: now },
         });
-        const isExpiredToken =
-          new Date(user.token.expiredAt).getTime() < new Date().getTime();
 
-        return done(null, user, isExpiredToken);
+        return done(null, user);
       } catch (err) {
         return done(new Error("UNAUTHORIZED"));
       }
@@ -20,19 +21,14 @@ module.exports = async (app) => {
   );
 
   app.use((req, res, next) => {
-    passport.authenticate(
-      "bearer",
-      { session: false },
-      (err, user, isExpiredToken) => {
-        if (err || !user) {
-          return next();
-        }
-
-        req.user = user;
-        req.isExpiredToken = isExpiredToken;
-
+    passport.authenticate("bearer", { session: false }, (err, user) => {
+      if (err || !user) {
         return next();
       }
-    )(req, res, next);
+
+      req.user = user;
+
+      return next();
+    })(req, res, next);
   });
 };
