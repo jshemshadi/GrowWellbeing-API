@@ -18,6 +18,12 @@ module.exports = {
     value: {
       passwordKey: process.env.PASSWORD_KEY,
       tokenExpireHours: process.env.TOKEN_EXPIRE_HOURS,
+
+      mailSenderHost: process.env.MAIL_SENDER_HOST,
+      mailSenderPort: process.env.MAIL_SENDER_PORT,
+      mailSenderSecure: process.env.MAIL_SENDER_SECURE,
+      mailSenderUsername: process.env.MAIN_SENDER_USERNAME,
+      mailSenderPassword: process.env.MAIL_SENDER_PASSWORD,
     },
   },
 };

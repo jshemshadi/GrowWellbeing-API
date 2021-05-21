@@ -11,6 +11,7 @@ const dbInit = require("./hooks/dbInit");
 const migration = require("./hooks/migration");
 const passport = require("./hooks/passport");
 const socketSender = require("./middleware/socketSender");
+const mailSender = require("./middleware/mailSender");
 const moment = require("moment");
 
 module.exports = async (app, Io) => {
@@ -22,6 +23,7 @@ module.exports = async (app, Io) => {
   global.systemError = require("./systemError");
   global.notificationsText = require("./notificationsText");
   global.socketSender = socketSender;
+  global.mailSender = mailSender;
   global.moment = moment;
   global.path = path;
   global.fs = fs;

@@ -50,6 +50,11 @@ module.exports = {
     return result;
   },
 
+  // CONVERTOR
+  toBoolean: (input) => {
+    return ["true", true].includes(input);
+  },
+
   // REQ & RES
   validateType: (type, value, required) => {
     switch (type) {

@@ -18,6 +18,12 @@ module.exports = {
     value: {
       passwordKey: process.env.PASSWORD_KEY || "password_key",
       tokenExpireHours: process.env.TOKEN_EXPIRE_HOURS || "1",
+
+      mailSenderHost: process.env.MAIL_SENDER_HOST || "smtp.gmail.com",
+      mailSenderPort: process.env.MAIL_SENDER_PORT || "587",
+      mailSenderSecure: process.env.MAIL_SENDER_SECURE || "false",
+      mailSenderUsername: process.env.MAIN_SENDER_USERNAME,
+      mailSenderPassword: process.env.MAIL_SENDER_PASSWORD,
     },
   },
 };

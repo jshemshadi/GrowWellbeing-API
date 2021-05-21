@@ -17,7 +17,13 @@
         "REDIS_HOST": "127.0.0.1",
 
         "PASSWORD_KEY": "password_key",
-        "TOKEN_EXPIRE_HOURS": 1
+        "TOKEN_EXPIRE_HOURS": 1,
+
+        "MAIL_SENDER_HOST": "",
+        "MAIL_SENDER_PORT": "",
+        "MAIL_SENDER_SECURE": "",
+        "MAIN_SENDER_USERNAME": "",
+        "MAIL_SENDER_PASSWORD": ""
       }
     }
   ]
