@@ -24,7 +24,6 @@ module.exports = async () => {
               socket: client,
               clientId: client.id,
             });
-            console.log(socketsList);
           }
         } catch (err) {}
       }
