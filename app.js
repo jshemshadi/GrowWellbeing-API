@@ -24,7 +24,12 @@ module.exports = async () => {
 
   // var server = https.createServer(credentials, app);
   var server = http.createServer(app);
-  const Io = require("socket.io")(server);
+  const Io = require("socket.io")(server, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    },
+  });
 
   await globals(app, Io);
   await socketIo();

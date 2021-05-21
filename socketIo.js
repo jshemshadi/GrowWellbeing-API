@@ -4,12 +4,30 @@ module.exports = async () => {
     client.on("registerMe", registerMe);
     client.on("disconnect", onDisconnect);
 
-    function registerMe(data) {
-      socketsList.push({
-        userId: data.userId,
-        socket: client,
-        clientId: client.id,
-      });
+    async function registerMe(data) {
+      const { token } = data;
+      if (token) {
+        const { users } = db;
+        const now = new Date();
+
+        try {
+          const user = await users.findOne({
+            "status.isTrash": false,
+            "status.isSuspend": false,
+            "status.isActive": true,
+            "token.code": token,
+            "token.expiredAt": { $gt: now },
+          });
+          if (user) {
+            socketsList.push({
+              userGUID: user.guid,
+              socket: client,
+              clientId: client.id,
+            });
+            console.log(socketsList);
+          }
+        } catch (err) {}
+      }
     }
 
     // Handle a disconnection from the client
