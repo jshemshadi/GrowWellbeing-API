@@ -5,16 +5,10 @@ module.exports = async (app) => {
   passport.use(
     new BearerStrategy(async (token, done) => {
       const { users } = db;
-      const now = new Date();
 
       try {
-        const user = await users.findOne({
-          "status.isTrash": false,
-          "status.isSuspend": false,
-          "status.isActive": true,
-          "token.code": token,
-          "token.expiredAt": { $gt: now },
-        });
+        const { guid } = jwt.verify(token, env.var.tokenKey);
+        const user = await users.findOne({ guid });
 
         return done(null, user);
       } catch (err) {

@@ -52,16 +52,11 @@ module.exports = {
 
     const now = new Date();
     const hashPassword = utils.createHashPassword({ password });
-    const newToken = utils.generateNewToken(32, targetUser.guid);
+    const newToken = utils.generateNewToken({ guid: targetUser.guid });
 
     targetUser.verification.expiredAt = now;
     targetUser.password = hashPassword;
 
-    targetUser.token.code = newToken;
-    targetUser.token.expiredAt = utils.addHours(
-      now,
-      Number(env.var.tokenExpireHours)
-    );
     targetUser.lastSeen = now;
 
     // UPDATE USER

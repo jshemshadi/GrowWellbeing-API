@@ -8,16 +8,10 @@ module.exports = async () => {
       const { token } = data;
       if (token) {
         const { users } = db;
-        const now = new Date();
 
         try {
-          const user = await users.findOne({
-            "status.isTrash": false,
-            "status.isSuspend": false,
-            "status.isActive": true,
-            "token.code": token,
-            "token.expiredAt": { $gt: now },
-          });
+          const { guid } = jwt.verify(token, env.var.tokenKey);
+          const user = await users.findOne({ guid });
           if (user) {
             socketsList.push({
               userGUID: user.guid,

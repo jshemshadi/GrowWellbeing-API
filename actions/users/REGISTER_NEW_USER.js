@@ -78,10 +78,6 @@ module.exports = {
         isSuspend: false,
         isActive: false,
       },
-      token: {
-        code: "EXPIRED_TOKEN",
-        expiredAt: now,
-      },
       verification: {
         code: "EXPIRED_CODE",
         expiredAt: now,

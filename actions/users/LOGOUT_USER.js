@@ -4,10 +4,6 @@ module.exports = {
   exec: async (params, req) => {
     const { user } = req;
 
-    // EXPIRE THE TOKEN
-    const now = new Date();
-    user.token.expiredAt = now;
-
     // UPDATE USER
     await services.users.updateUser({ user });
 

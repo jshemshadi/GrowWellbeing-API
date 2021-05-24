@@ -67,13 +67,8 @@ module.exports = {
     }
 
     // CREATE TOKEN
-    const newToken = utils.generateNewToken(32, targetUser.guid);
+    const newToken = utils.generateNewToken({ guid: targetUser.guid });
 
-    targetUser.token.code = newToken;
-    targetUser.token.expiredAt = utils.addHours(
-      now,
-      Number(env.var.tokenExpireHours)
-    );
     targetUser.lastSeen = now;
     targetUser.failedLogin = { count: 0, lastTry: now };
 

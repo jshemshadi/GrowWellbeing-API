@@ -17,7 +17,8 @@ module.exports = {
     type: "JSON",
     value: {
       passwordKey: process.env.PASSWORD_KEY,
-      tokenExpireHours: process.env.TOKEN_EXPIRE_HOURS,
+      tokenKey: process.env.TOKEN_KEY,
+      tokenExpireTime: process.env.TOKEN_EXPIRE_TIME,
       verificationExpireHours: process.env.VERIFICATION_EXPIRE_HOURS,
       maxFailedLoginCount: process.env.MAX_FAILED_LOGIN_COUNT,
       maxFailedLoginMinutes: process.env.MAX_FAILED_LOGIN_MINUTES,

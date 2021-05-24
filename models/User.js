@@ -76,17 +76,6 @@ module.exports = {
             },
           },
         },
-        token: {
-          bsonType: "object",
-          properties: {
-            code: {
-              bsonType: "string",
-            },
-            expiredAt: {
-              bsonType: "date",
-            },
-          },
-        },
         verification: {
           bsonType: "object",
           properties: {

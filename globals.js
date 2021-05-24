@@ -14,9 +14,11 @@ const socketSender = require("./middleware/socketSender");
 const mailSender = require("./middleware/mailSender");
 const smsSender = require("./middleware/smsSender");
 const moment = require("moment");
+var jwt = require("jsonwebtoken");
 
 module.exports = async (app, Io) => {
   global._ = lodash;
+  global.jwt = jwt;
   global.utils = utils;
   global.env = require("./env");
   global.permissions = utils.requireDirectory(path.resolve("./permissions"));
