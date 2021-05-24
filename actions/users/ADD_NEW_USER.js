@@ -91,10 +91,14 @@ module.exports = {
         verification: {
           code: "EXPIRED_CODE",
           expiredAt: now,
+          count: 0,
+          lastTry: now,
         },
         passwordReset: {
           code: "EXPIRED_CODE",
           expiredAt: now,
+          count: 0,
+          lastTry: now,
         },
       },
       failedLogin: { count: 0, lastTry: now },

@@ -97,4 +97,14 @@ module.exports = {
       utils.checkStatus({ req, res, result });
     },
   },
+  // RESEND ACCOUNT VERIFICATION ACCOUNT CODE
+  patch_resendAccountVerificationCode: {
+    method: "patch",
+    action: async (req, res) => {
+      const result = await actions.users.RESEND_ACCOUNT_VERIFICATION_CODE.run(
+        req
+      );
+      utils.checkStatus({ req, res, result });
+    },
+  },
 };

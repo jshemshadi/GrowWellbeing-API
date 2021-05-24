@@ -88,6 +88,12 @@ module.exports = {
                 expiredAt: {
                   bsonType: "date",
                 },
+                count: {
+                  bsonType: "int",
+                },
+                lastTry: {
+                  bsonType: "date",
+                },
               },
             },
             passwordReset: {
@@ -97,6 +103,12 @@ module.exports = {
                   bsonType: "string",
                 },
                 expiredAt: {
+                  bsonType: "date",
+                },
+                count: {
+                  bsonType: "int",
+                },
+                lastTry: {
                   bsonType: "date",
                 },
               },

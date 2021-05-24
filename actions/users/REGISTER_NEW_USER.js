@@ -85,10 +85,14 @@ module.exports = {
             now,
             Number(env.var.verificationExpireHours)
           ),
+          count: 1,
+          lastTry: now,
         },
         passwordReset: {
           code: "EXPIRED_CODE",
           expiredAt: now,
+          count: 0,
+          lastTry: now,
         },
       },
       failedLogin: { count: 0, lastTry: now },
@@ -99,6 +103,16 @@ module.exports = {
     if (result.insertedCount === 0) {
       throw new Error(systemError.users.cannotInsertNewUser);
     }
+
+    await mailSender.sendEmail({
+      type: "registerUser",
+      subject: "REGISTER USER - VERIFICATION CODE",
+      data: result.ops[0],
+      to: [email],
+      cc: [],
+      bcc: [],
+      attachments: [],
+    });
 
     const {
       createdAt: resultCreatedAt,

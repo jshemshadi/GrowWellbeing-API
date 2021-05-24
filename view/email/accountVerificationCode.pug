@@ -7,14 +7,14 @@ block content
         span= 'DEAR ' 
         span= username + ' '
       p
-        span= 'We received a request from you for reset password .'
-        span= 'to complete reset password you need to enter the bellow verification code :'
+        span= 'We received a request from you for registeration .'
+        span= 'to complete registration you need to enter the bellow verification code :'
     mj-text(font-size='18px')
-      p= token.passwordReset.code
+      p= token.verification.code
       mj-text(font-size='16px', color='crimson')
         p Your verification code expire at
     mj-text(font-size='18px')
-      p= token.passwordReset.expiredAt
+      p= token.verification.expiredAt
 
     mj-text(font-size='16px')
       p
