@@ -87,9 +87,15 @@ module.exports = {
         isSuspend: false,
         isActive: false,
       },
-      verification: {
-        code: "EXPIRED_CODE",
-        expiredAt: now,
+      token: {
+        verification: {
+          code: "EXPIRED_CODE",
+          expiredAt: now,
+        },
+        passwordReset: {
+          code: "EXPIRED_CODE",
+          expiredAt: now,
+        },
       },
       failedLogin: { count: 0, lastTry: now },
     };

@@ -28,12 +28,12 @@ module.exports = {
       throw new Error(systemError.users.accountIsInActive);
     }
 
-    // CREATE VERIFICATION CODE
+    // CREATE PASSWORD RESET CODE
     const now = new Date();
     const newVerification = utils.generateNewVerificationCode(4);
 
-    targetUser.verification.code = newVerification;
-    targetUser.verification.expiredAt = utils.addHours(
+    targetUser.token.passwordReset.code = newVerification;
+    targetUser.token.passwordReset.expiredAt = utils.addHours(
       now,
       Number(env.var.verificationExpireHours)
     );
@@ -46,7 +46,7 @@ module.exports = {
 
     await mailSender.sendEmail({
       type: "resetPassword",
-      subject: "RESET PASSWORD - VERIFICATION CODE",
+      subject: "RESET PASSWORD - PASSWORD RESET CODE",
       data: targetUser,
       to: [targetUser.email],
       cc: [],

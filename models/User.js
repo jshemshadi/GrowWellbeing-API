@@ -76,14 +76,30 @@ module.exports = {
             },
           },
         },
-        verification: {
+        token: {
           bsonType: "object",
           properties: {
-            code: {
-              bsonType: "string",
+            verification: {
+              bsonType: "object",
+              properties: {
+                code: {
+                  bsonType: "string",
+                },
+                expiredAt: {
+                  bsonType: "date",
+                },
+              },
             },
-            expiredAt: {
-              bsonType: "date",
+            passwordReset: {
+              bsonType: "object",
+              properties: {
+                code: {
+                  bsonType: "string",
+                },
+                expiredAt: {
+                  bsonType: "date",
+                },
+              },
             },
           },
         },

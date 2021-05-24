@@ -26,9 +26,15 @@ module.exports = async () => {
         isSuspend: false,
         isActive: true,
       },
-      verification: {
-        code: "EXPIRED_TOKEN",
-        expiredAt: now,
+      token: {
+        verification: {
+          code: "EXPIRED_CODE",
+          expiredAt: now,
+        },
+        passwordReset: {
+          code: "EXPIRED_CODE",
+          expiredAt: now,
+        },
       },
     };
 

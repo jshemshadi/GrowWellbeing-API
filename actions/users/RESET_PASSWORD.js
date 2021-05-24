@@ -37,8 +37,8 @@ module.exports = {
     }
 
     if (
-      targetUser.verification.code !== verificationCode ||
-      new Date(targetUser.verification.expiredAt).getTime() <=
+      targetUser.token.passwordReset.code !== verificationCode ||
+      new Date(targetUser.token.passwordReset.expiredAt).getTime() <=
         new Date().getTime()
     ) {
       throw new Error(systemError.users.invalidVerificationCode);
@@ -54,7 +54,7 @@ module.exports = {
     const hashPassword = utils.createHashPassword({ password });
     const newToken = utils.generateNewToken({ guid: targetUser.guid });
 
-    targetUser.verification.expiredAt = now;
+    targetUser.token.passwordReset.expiredAt = now;
     targetUser.password = hashPassword;
 
     targetUser.lastSeen = now;

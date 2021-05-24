@@ -1,5 +1,6 @@
 module.exports = {
   users: {
+    accountAlreadyActivated: "ACCOUNT_ALREADY_ACTIVATED",
     accountIsInActive: "ACCOUNT_IS_INACTIVE",
     accountWasSuspended: "ACCOUNT_WAS_SUSPENDED",
     accountWasTrashed: "ACCOUNT_WAS_TRASHED",

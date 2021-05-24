@@ -31,22 +31,6 @@ module.exports = {
       utils.checkStatus({ req, res, result });
     },
   },
-  // REQUEST RESET PASSWORD
-  post_requestResetPassword: {
-    method: "post",
-    action: async (req, res) => {
-      const result = await actions.users.REQUEST_RESET_PASSWORD.run(req);
-      utils.checkStatus({ req, res, result });
-    },
-  },
-  // RESET PASSWORD
-  post_resetPassword: {
-    method: "post",
-    action: async (req, res) => {
-      const result = await actions.users.RESET_PASSWORD.run(req);
-      utils.checkStatus({ req, res, result });
-    },
-  },
 
   // GET USERS LIST BY ADMIN
   get_: {
@@ -86,6 +70,30 @@ module.exports = {
     method: "patch",
     action: async (req, res) => {
       const result = await actions.users.UPDATE_USER_PROFILE.run(req);
+      utils.checkStatus({ req, res, result });
+    },
+  },
+  // REQUEST RESET PASSWORD
+  patch_requestResetPassword: {
+    method: "patch",
+    action: async (req, res) => {
+      const result = await actions.users.REQUEST_RESET_PASSWORD.run(req);
+      utils.checkStatus({ req, res, result });
+    },
+  },
+  // RESET PASSWORD
+  patch_resetPassword: {
+    method: "patch",
+    action: async (req, res) => {
+      const result = await actions.users.RESET_PASSWORD.run(req);
+      utils.checkStatus({ req, res, result });
+    },
+  },
+  // VERIFY ACCOUNT
+  patch_verify: {
+    method: "patch",
+    action: async (req, res) => {
+      const result = await actions.users.VERIFY_ACCOUNT.run(req);
       utils.checkStatus({ req, res, result });
     },
   },

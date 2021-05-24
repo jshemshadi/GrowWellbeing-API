@@ -78,9 +78,18 @@ module.exports = {
         isSuspend: false,
         isActive: false,
       },
-      verification: {
-        code: "EXPIRED_CODE",
-        expiredAt: now,
+      token: {
+        verification: {
+          code: utils.generateNewVerificationCode(4),
+          expiredAt: utils.addHours(
+            now,
+            Number(env.var.verificationExpireHours)
+          ),
+        },
+        passwordReset: {
+          code: "EXPIRED_CODE",
+          expiredAt: now,
+        },
       },
       failedLogin: { count: 0, lastTry: now },
     };
