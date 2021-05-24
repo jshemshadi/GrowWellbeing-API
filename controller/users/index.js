@@ -107,4 +107,12 @@ module.exports = {
       utils.checkStatus({ req, res, result });
     },
   },
+  // RESEND RESET PASSWORD CODE
+  patch_resendResetPasswordCode: {
+    method: "patch",
+    action: async (req, res) => {
+      const result = await actions.users.RESEND_RESET_PASSWORD_CODE.run(req);
+      utils.checkStatus({ req, res, result });
+    },
+  },
 };
