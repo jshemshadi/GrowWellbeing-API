@@ -46,7 +46,7 @@ module.exports = {
     return re.test(String(email).toLowerCase());
   },
   validateMobile: ({ mobile }) => {
-    return mobile.length === 13;
+    return mobile.length === 13 || mobile.length === 11;
   },
 
   // REQ & RES

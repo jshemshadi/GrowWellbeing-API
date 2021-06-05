@@ -20,7 +20,7 @@ module.exports = async () => {
       username: "admin",
       password: hashPassword,
       guid,
-      roles: [userModel.statics.roles.Admin],
+      role: userModel.statics.roles.Admin,
       status: {
         isTrash: false,
         isSuspend: false,
@@ -35,6 +35,10 @@ module.exports = async () => {
           code: "EXPIRED_CODE",
           expiredAt: now,
         },
+      },
+      failedLogin: {
+        count: 0,
+        lastTry: now,
       },
     };
 

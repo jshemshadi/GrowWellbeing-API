@@ -1,3 +1,5 @@
+const userModel = require("../../models/User");
+
 module.exports = {
   anonymouse: true,
   inputSchema: {
@@ -9,15 +11,23 @@ module.exports = {
       type: "string",
       required: true,
     },
+    accountType: {
+      type: "string",
+      values: Object.values(userModel.statics.roles),
+      required: true,
+    },
   },
   exec: async (params, req) => {
-    const { username, password } = params;
+    const { username, password, accountType } = params;
     const { users } = db;
     const now = new Date();
 
     const targetUser = await users.findOne({ username });
     if (!targetUser) {
       throw new Error(systemError.users.cannotFindUser);
+    }
+    if (targetUser.role !== accountType) {
+      throw new Error(systemError.users.accountTypeIsInvalid);
     }
 
     const oldPassword = utils.decryptHashPassword({
@@ -84,7 +94,7 @@ module.exports = {
       mobile: resultMobile,
       email: resultEmail,
       guid: resultGuid,
-      roles: resultRoles,
+      role: resultRole,
       username: resultUsername,
       avatar: resultAvatar,
       status: resultStatus,
@@ -95,7 +105,7 @@ module.exports = {
       mobile: resultMobile,
       email: resultEmail,
       guid: resultGuid,
-      roles: resultRoles,
+      role: resultRole,
       username: resultUsername,
       avatar: resultAvatar,
       status: resultStatus,

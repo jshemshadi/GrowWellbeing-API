@@ -40,12 +40,12 @@ module.exports = {
     email = email.trim();
     const isValidEmail = utils.validateEmail({ email });
     if (!isValidEmail) {
-      throw new Error(systemError.user.notValidEmaiAddress);
+      throw new Error(systemError.users.notValidEmaiAddress);
     }
 
     const isValidMobile = utils.validateMobile({ mobile });
     if (!isValidMobile) {
-      throw new Error(systemError.user.notValidMobileNumber);
+      throw new Error(systemError.users.notValidMobileNumber);
     }
 
     let needUpdate = false;
@@ -113,7 +113,7 @@ module.exports = {
       username: resultUsername,
       status: resultStatus,
       guid: resultGUID,
-      roles: resultRoles,
+      role: resultRole,
     } = user;
     return {
       firstName: resultFirstName,
@@ -124,7 +124,7 @@ module.exports = {
       username: resultUsername,
       status: resultStatus,
       guid: resultGUID,
-      roles: resultRoles,
+      role: resultRole,
     };
   },
 };

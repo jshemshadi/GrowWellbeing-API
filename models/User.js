@@ -1,6 +1,8 @@
 const roles = {
   Admin: "admin",
-  User: "user",
+  School: "school",
+  GP: "gp",
+  Staff: "staff",
 };
 
 module.exports = {
@@ -16,7 +18,7 @@ module.exports = {
         "mobile",
         "email",
         "guid",
-        "roles",
+        "role",
         "username",
         "password",
         "status",
@@ -55,12 +57,9 @@ module.exports = {
         guid: {
           bsonType: "string",
         },
-        roles: {
-          bsonType: "array",
-          items: {
-            bsonType: "string",
-            enum: Object.values(roles),
-          },
+        role: {
+          bsonType: "string",
+          enum: Object.values(roles),
         },
         status: {
           bsonType: "object",

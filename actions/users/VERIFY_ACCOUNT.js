@@ -1,7 +1,7 @@
 module.exports = {
   anonymouse: true,
   inputSchema: {
-    username: {
+    email: {
       type: "string",
       required: true,
     },
@@ -11,13 +11,13 @@ module.exports = {
     },
   },
   exec: async (params, req) => {
-    const { username, verificationCode } = params;
+    const { email, verificationCode } = params;
     const { users } = db;
     const now = new Date();
 
     // FIND USER
     const targetUser = await users.findOne({
-      username,
+      email,
     });
     if (!targetUser) {
       throw new Error(systemError.users.cannotFindUser);
@@ -43,7 +43,12 @@ module.exports = {
       throw new Error(systemError.users.invalidVerificationCode);
     }
 
+    // CREATE TOKEN
+    const newToken = utils.generateNewToken({ guid: targetUser.guid });
+
     targetUser.status.isActive = true;
+    targetUser.lastSeen = now;
+    targetUser.failedLogin = { count: 0, lastTry: now };
     targetUser.token.verification.code = "EXPIRED_TOKEN";
     targetUser.token.verification.expiredAt = now;
 
@@ -53,6 +58,28 @@ module.exports = {
       throw new Error(systemError.users.cannotUpdateUser);
     }
 
-    return null;
+    const {
+      firstName: resultFirstName,
+      lastName: resultLastName,
+      mobile: resultMobile,
+      email: resultEmail,
+      guid: resultGuid,
+      role: resultRole,
+      username: resultUsername,
+      avatar: resultAvatar,
+      status: resultStatus,
+    } = targetUser;
+    return {
+      firstName: resultFirstName,
+      lastName: resultLastName,
+      mobile: resultMobile,
+      email: resultEmail,
+      guid: resultGuid,
+      role: resultRole,
+      username: resultUsername,
+      avatar: resultAvatar,
+      status: resultStatus,
+      token: newToken,
+    };
   },
 };

@@ -25,12 +25,9 @@ module.exports = {
     file: {
       type: "string",
     },
-    roles: {
-      type: "array",
-      items: {
-        type: "string",
-        enum: Object.values(userModel.statics.roles),
-      },
+    role: {
+      type: "string",
+      enum: Object.values(userModel.statics.roles),
     },
     isTrash: {
       type: "bool",
@@ -51,24 +48,22 @@ module.exports = {
       email = "",
       password = "",
       file = "",
-      roles = [],
+      role = "",
       isTrash,
       isSuspend,
       isActive,
     } = params;
     const { users } = db;
 
-    roles = _.uniq(roles);
-
     email = email.trim();
     const isValidEmail = utils.validateEmail({ email });
     if (!isValidEmail) {
-      throw new Error(systemError.user.notValidEmaiAddress);
+      throw new Error(systemError.users.notValidEmaiAddress);
     }
 
     const isValidMobile = utils.validateMobile({ mobile });
     if (!isValidMobile) {
-      throw new Error(systemError.user.notValidMobileNumber);
+      throw new Error(systemError.users.notValidMobileNumber);
     }
 
     const targetUser = await users.findOne({ guid: userGUID });
@@ -114,8 +109,8 @@ module.exports = {
       targetUser.avatar = file;
       needUpdate = true;
     }
-    if (roles.length && !_.isEqual(roles, targetUser.roles)) {
-      targetUser.roles = roles;
+    if (role.length && role !== targetUser.role) {
+      targetUser.role = role;
       needUpdate = true;
     }
     if (!_.isUndefined(isTrash)) {
@@ -153,7 +148,7 @@ module.exports = {
       username: resultUsername,
       status: resultStatus,
       guid: resultGUID,
-      roles: resultRoles,
+      role: resultRole,
     } = targetUser;
     return {
       createdAt: resultCreatedAt,
@@ -167,7 +162,7 @@ module.exports = {
       username: resultUsername,
       status: resultStatus,
       guid: resultGUID,
-      roles: resultRoles,
+      role: resultRole,
     };
   },
 };

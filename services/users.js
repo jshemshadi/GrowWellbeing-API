@@ -1,5 +1,5 @@
 const { users } = db;
-
+const userModel = require("../models/User");
 module.exports = {
   findDuplicate: async ({ username }) => {
     const query = { username };
@@ -59,7 +59,7 @@ module.exports = {
         username: 1,
         status: 1,
         guid: 1,
-        roles: 1,
+        role: 1,
       },
     });
 
@@ -113,7 +113,7 @@ module.exports = {
       username,
       status,
       guid,
-      roles,
+      role,
     } = user;
     return {
       createdAt,
@@ -127,8 +127,34 @@ module.exports = {
       username,
       status,
       guid,
-      roles,
+      role,
     };
+  },
+  getAllGPs: async () => {
+    const query = [];
+    query.push({
+      $match: {
+        role: userModel.statics.roles.GP,
+        "status.isTrash": false,
+        "status.isSuspend": false,
+        "status.isActive": true,
+      },
+    });
+    query.push({
+      $project: {
+        firstName: 1,
+        lastName: 1,
+        mobile: 1,
+        email: 1,
+        avatar: 1,
+        username: 1,
+        guid: 1,
+      },
+    });
+
+    const result = await users.aggregate(query).toArray();
+
+    return result;
   },
 
   addNewUser: async ({ user }) => {

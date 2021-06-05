@@ -27,19 +27,32 @@ module.exports = {
       type: "string",
       required: true,
     },
+    accountType: {
+      type: "string",
+      values: Object.values(userModel.statics.roles),
+      required: true,
+    },
   },
   exec: async (params, req) => {
-    let { firstName, lastName, mobile, email, username, password } = params;
+    let {
+      firstName,
+      lastName,
+      mobile,
+      email,
+      username,
+      password,
+      accountType,
+    } = params;
 
     email = email.trim();
     const isValidEmail = utils.validateEmail({ email });
     if (!isValidEmail) {
-      throw new Error(systemError.user.notValidEmaiAddress);
+      throw new Error(systemError.users.notValidEmaiAddress);
     }
 
     const isValidMobile = utils.validateMobile({ mobile });
     if (!isValidMobile) {
-      throw new Error(systemError.user.notValidMobileNumber);
+      throw new Error(systemError.users.notValidMobileNumber);
     }
 
     // FIND DUPLICATE USER
@@ -72,7 +85,7 @@ module.exports = {
       username,
       password: hashPassword,
       guid,
-      roles: [userModel.statics.roles.User],
+      role: accountType,
       status: {
         isTrash: false,
         isSuspend: false,
@@ -121,7 +134,7 @@ module.exports = {
       mobile: resultMobile,
       email: resultEmail,
       guid: resultGuid,
-      roles: resultRoles,
+      role: resultRole,
       username: resultUsername,
     } = result.ops[0];
     return {
@@ -131,7 +144,7 @@ module.exports = {
       mobile: resultMobile,
       email: resultEmail,
       guid: resultGuid,
-      roles: resultRoles,
+      role: resultRole,
       username: resultUsername,
     };
   },

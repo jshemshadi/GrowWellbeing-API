@@ -1,17 +1,17 @@
 module.exports = {
   anonymouse: true,
   inputSchema: {
-    username: {
+    email: {
       type: "string",
       required: true,
     },
   },
   exec: async (params, req) => {
-    const { username } = params;
+    const { email } = params;
     const { users } = db;
 
     // FIND USER
-    const targetUser = await users.findOne({ username });
+    const targetUser = await users.findOne({ email });
     if (!targetUser) {
       throw new Error(systemError.users.cannotFindUser);
     }

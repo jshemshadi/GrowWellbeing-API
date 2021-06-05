@@ -1,7 +1,7 @@
 module.exports = {
   anonymouse: true,
   inputSchema: {
-    username: {
+    email: {
       type: "string",
       required: true,
     },
@@ -15,11 +15,11 @@ module.exports = {
     },
   },
   exec: async (params, req) => {
-    const { username, verificationCode, password } = params;
+    const { email, verificationCode, password } = params;
     const { users } = db;
 
     // FIND USER
-    const targetUser = await users.findOne({ username });
+    const targetUser = await users.findOne({ email });
     if (!targetUser) {
       throw new Error(systemError.users.cannotFindUser);
     }
@@ -71,7 +71,7 @@ module.exports = {
       mobile: resultMobile,
       email: resultEmail,
       guid: resultGuid,
-      roles: resultRoles,
+      role: resultRole,
       username: resultUsername,
       avatar: resultAvatar,
       status: resultStatus,
@@ -82,7 +82,7 @@ module.exports = {
       mobile: resultMobile,
       email: resultEmail,
       guid: resultGuid,
-      roles: resultRoles,
+      role: resultRole,
       username: resultUsername,
       avatar: resultAvatar,
       status: resultStatus,

@@ -1,17 +1,17 @@
 module.exports = {
   anonymouse: true,
   inputSchema: {
-    username: {
+    email: {
       type: "string",
       required: true,
     },
   },
   exec: async (params, req) => {
-    const { username } = params;
+    const { email } = params;
     const { users } = db;
 
     // FIND USER
-    const targetUser = await users.findOne({ username });
+    const targetUser = await users.findOne({ email });
     if (!targetUser) {
       throw new Error(systemError.users.cannotFindUser);
     }
@@ -24,7 +24,7 @@ module.exports = {
       throw new Error(systemError.users.accountWasSuspended);
     }
 
-    if (targetUser.status.isActive) {
+    if (!targetUser.status.isActive) {
       throw new Error(systemError.users.accountAlreadyActivated);
     }
 

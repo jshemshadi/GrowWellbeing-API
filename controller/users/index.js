@@ -40,6 +40,14 @@ module.exports = {
       utils.checkStatus({ req, res, result });
     },
   },
+  // GET GPs LIST BY ADMIN
+  get_getAllGPs: {
+    method: "get",
+    action: async (req, res) => {
+      const result = await actions.users.GET_ALL_GPS.run(req);
+      utils.checkStatus({ req, res, result });
+    },
+  },
   // GET A USER BY ADMIN
   "get_:userGUID/profile": {
     method: "get",
@@ -104,6 +112,14 @@ module.exports = {
       const result = await actions.users.RESEND_ACCOUNT_VERIFICATION_CODE.run(
         req
       );
+      utils.checkStatus({ req, res, result });
+    },
+  },
+  // RESEND RESET PASSWORD CODE
+  patch_checkResetPasswordCode: {
+    method: "patch",
+    action: async (req, res) => {
+      const result = await actions.users.CHECK_RESET_PASSWORD_CODE.run(req);
       utils.checkStatus({ req, res, result });
     },
   },

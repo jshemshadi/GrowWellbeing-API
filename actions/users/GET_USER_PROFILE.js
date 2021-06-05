@@ -13,7 +13,7 @@ module.exports = {
       username,
       status,
       guid,
-      roles,
+      role,
     } = user;
     return {
       firstName,
@@ -24,7 +24,7 @@ module.exports = {
       username,
       status,
       guid,
-      roles,
+      role,
     };
   },
 };

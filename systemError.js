@@ -1,7 +1,16 @@
 module.exports = {
+  appointments: {
+    cannotFindAppointment: "CANNOT_FIND_APPOINTMENT",
+    cannotInsertNewAppointment: "CANNOT_INSERT_NEW_APPOINTMENT",
+    cannotUpdateAppointment: "CANNOT_UPDATE_APPOINTMENT",
+    duplicateAppointment: "DUPLICATE_APPOINTMENT",
+    notValidDate: "NOT_VALID_DATE",
+    notValidDoB: "NOT_VALID_DoB",
+  },
   users: {
     accountAlreadyActivated: "ACCOUNT_ALREADY_ACTIVATED",
     accountIsInActive: "ACCOUNT_IS_INACTIVE",
+    accountTypeIsInvalid: "ACCOUNT_TYPE_IS_INVALID",
     accountWasSuspended: "ACCOUNT_WAS_SUSPENDED",
     accountWasTrashed: "ACCOUNT_WAS_TRASHED",
     cannotFindUser: "CANNOT_FIND_USER",
