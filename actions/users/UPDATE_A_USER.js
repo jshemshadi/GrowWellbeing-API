@@ -22,7 +22,7 @@ module.exports = {
     password: {
       type: "string",
     },
-    file: {
+    avatar: {
       type: "string",
     },
     role: {
@@ -47,24 +47,13 @@ module.exports = {
       mobile = "",
       email = "",
       password = "",
-      file = "",
+      avatar = "",
       role = "",
       isTrash,
       isSuspend,
       isActive,
     } = params;
     const { users } = db;
-
-    email = email.trim();
-    const isValidEmail = utils.validateEmail({ email });
-    if (!isValidEmail) {
-      throw new Error(systemError.users.notValidEmaiAddress);
-    }
-
-    const isValidMobile = utils.validateMobile({ mobile });
-    if (!isValidMobile) {
-      throw new Error(systemError.users.notValidMobileNumber);
-    }
 
     const targetUser = await users.findOne({ guid: userGUID });
     if (!targetUser) {
@@ -82,10 +71,21 @@ module.exports = {
       needUpdate = true;
     }
     if (mobile.length && mobile !== targetUser.mobile) {
+      const isValidMobile = utils.validateMobile({ mobile });
+      if (!isValidMobile) {
+        throw new Error(systemError.users.notValidMobileNumber);
+      }
+
       targetUser.mobile = mobile;
       needUpdate = true;
     }
     if (email.length && email !== targetUser.email) {
+      email = email.trim();
+      const isValidEmail = utils.validateEmail({ email });
+      if (!isValidEmail) {
+        throw new Error(systemError.users.notValidEmaiAddress);
+      }
+
       targetUser.email = email;
       needUpdate = true;
     }
@@ -105,8 +105,12 @@ module.exports = {
         needUpdate = true;
       }
     }
-    if (file.length && file !== targetUser.avatar) {
-      targetUser.avatar = file;
+    if (avatar.length && avatar !== targetUser.avatar) {
+      targetUser.avatar = avatar;
+      needUpdate = true;
+    }
+    if (role.length && role !== targetUser.role) {
+      targetUser.role = role;
       needUpdate = true;
     }
     if (role.length && role !== targetUser.role) {

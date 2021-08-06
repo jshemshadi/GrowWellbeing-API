@@ -17,6 +17,7 @@ module.exports = {
         "DoB",
         "contactNumber",
         "gardianName",
+        "fullName",
         "address",
         "status",
       ],
@@ -43,6 +44,9 @@ module.exports = {
           bsonType: "date",
         },
         contactNumber: {
+          bsonType: "string",
+        },
+        fullName: {
           bsonType: "string",
         },
         gardianName: {

@@ -1,5 +1,10 @@
 module.exports = {
-  permissions: [permissions.isAdmin, permissions.isUser],
+  permissions: [
+    permissions.isAdmin,
+    permissions.isGP,
+    permissions.isSchool,
+    permissions.isStaff,
+  ],
   inputSchema: {},
   exec: async (params, req) => {
     const { user } = req;

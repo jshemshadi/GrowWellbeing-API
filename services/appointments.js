@@ -1,12 +1,22 @@
 const { appointments } = db;
 
 module.exports = {
-  findDuplicate: async ({ date, schoolId }) => {
-    const query = { date, schoolId };
+  findDuplicate: async ({ date, schoolId, fullName }) => {
+    const query = { date, schoolId, fullName };
 
     return appointments.findOne(query);
   },
-  getUserAppointments: async ({ userId, role, search, page, limit, sort }) => {
+  getUserAppointments: async ({
+    userId,
+    role,
+    search,
+    page,
+    limit,
+    sort,
+    from,
+    to,
+    createAfter,
+  }) => {
     const query = [];
 
     if (role === "gp") {
@@ -14,11 +24,26 @@ module.exports = {
     } else if (role === "school") {
       query.push({ $match: { schoolId: userId } });
     }
+    if (from && from.length) {
+      query.push({ $match: { date: { $gte: new Date(from) } } });
+    }
+    if (to && to.length) {
+      query.push({ $match: { date: { $lte: new Date(to) } } });
+    }
+    if (createAfter && createAfter.length) {
+      query.push({ $match: { createdAt: { $gte: new Date(createAfter) } } });
+    }
 
     if (search.length) {
       query.push({
         $match: {
           $or: [
+            {
+              fullName: {
+                $regex: `${search}`,
+                $options: "ig",
+              },
+            },
             {
               gardianName: {
                 $regex: `${search}`,
@@ -57,6 +82,7 @@ module.exports = {
         DoB: 1,
         contactNumber: 1,
         gardianName: 1,
+        fullName: 1,
         address: 1,
         summary: 1,
         status: 1,

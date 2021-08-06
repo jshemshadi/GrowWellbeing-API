@@ -19,6 +19,10 @@ module.exports = {
       type: "string",
       required: true,
     },
+    fullName: {
+      type: "string",
+      required: true,
+    },
     address: {
       type: "string",
       required: true,
@@ -34,6 +38,7 @@ module.exports = {
       DoB,
       contactNumber,
       gardianName,
+      fullName,
       address,
       summary = "",
     } = params;
@@ -49,6 +54,7 @@ module.exports = {
     const duplicateAppointment = await services.appointments.findDuplicate({
       date: new Date(date),
       schoolId: user.guid,
+      fullName,
     });
     if (duplicateAppointment) {
       throw new Error(systemError.appointments.duplicateAppointment);
@@ -68,6 +74,7 @@ module.exports = {
       DoB: new Date(DoB),
       contactNumber,
       gardianName,
+      fullName,
       address,
       summary,
       status: appointmentModel.statics.statusType.Pending,
@@ -90,6 +97,7 @@ module.exports = {
       DoB: resultDoB,
       contactNumber: resultContactNumber,
       gardianName: resultGardianName,
+      fullName: resultFullName,
       address: resultAddress,
       summary: resultSummary,
       status: resultStatus,
@@ -103,6 +111,7 @@ module.exports = {
       DoB: resultDoB,
       contactNumber: resultContactNumber,
       gardianName: resultGardianName,
+      fullName: resultFullName,
       address: resultAddress,
       summary: resultSummary,
       status: resultStatus,

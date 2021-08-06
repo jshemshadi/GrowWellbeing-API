@@ -1,7 +1,12 @@
 const userModel = require("../../models/User");
 
 module.exports = {
-  permissions: [permissions.isAdmin, permissions.isUser],
+  permissions: [
+    permissions.isAdmin,
+    permissions.isGP,
+    permissions.isSchool,
+    permissions.isStaff,
+  ],
   inputSchema: {
     firstName: {
       type: "string",
@@ -15,7 +20,7 @@ module.exports = {
     email: {
       type: "string",
     },
-    file: {
+    avatar: {
       type: "string",
     },
     oldPassword: {
@@ -31,22 +36,11 @@ module.exports = {
       lastName = "",
       mobile = "",
       email = "",
-      file = "",
+      avatar = "",
       oldPassword = "",
       newPassword = "",
     } = params;
     const { user } = req;
-
-    email = email.trim();
-    const isValidEmail = utils.validateEmail({ email });
-    if (!isValidEmail) {
-      throw new Error(systemError.users.notValidEmaiAddress);
-    }
-
-    const isValidMobile = utils.validateMobile({ mobile });
-    if (!isValidMobile) {
-      throw new Error(systemError.users.notValidMobileNumber);
-    }
 
     let needUpdate = false;
 
@@ -59,15 +53,26 @@ module.exports = {
       needUpdate = true;
     }
     if (mobile.length && mobile !== user.mobile) {
+      const isValidMobile = utils.validateMobile({ mobile });
+      if (!isValidMobile) {
+        throw new Error(systemError.users.notValidMobileNumber);
+      }
+
       user.mobile = mobile;
       needUpdate = true;
     }
     if (email.length && email !== user.email) {
+      email = email.trim();
+      const isValidEmail = utils.validateEmail({ email });
+      if (!isValidEmail) {
+        throw new Error(systemError.users.notValidEmaiAddress);
+      }
+
       user.email = email;
       needUpdate = true;
     }
-    if (file.length && file !== user.avatar) {
-      user.avatar = file;
+    if (avatar.length && avatar !== user.avatar) {
+      user.avatar = avatar;
       needUpdate = true;
     }
     if (

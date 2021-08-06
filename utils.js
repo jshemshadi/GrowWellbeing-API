@@ -130,10 +130,10 @@ module.exports = {
     }
   },
   deleteFailedRequestFiles: (req) => {
-    const { file } = req.body;
-    if (file) {
+    const { avatar } = req.body;
+    if (avatar) {
       try {
-        const filePath = path.join(__dirname, file);
+        const filePath = path.join(__dirname, avatar);
         fs.unlinkSync(filePath);
       } catch (error) {}
     }

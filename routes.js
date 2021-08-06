@@ -4,7 +4,7 @@ const multer = require("multer");
 
 const maxFileSize = process.env.MAX_FILE_SIZE;
 const uploadFile = multer({
-  dest: path.join("uploads", "files"),
+  dest: path.join("uploads", "avatar"),
   limits: {
     fileSize: maxFileSize,
   },
@@ -25,18 +25,18 @@ const fileHandler = (req, res) => {
 };
 
 const handleInputFiles = async (req) => {
-  req.body.file = "";
-  if (req.files && req.files["file"]) {
-    for (const file of req.files["file"]) {
-      const filePath = utils.addExtensionToUploadedFile(file);
-      req.body.file = filePath;
+  req.body.avatar = "";
+  if (req.files && req.files["avatar"]) {
+    for (const avatar of req.files["avatar"]) {
+      const filePath = utils.addExtensionToUploadedFile(avatar);
+      req.body.avatar = filePath;
     }
   }
 };
 
 module.exports = (app) => {
   app.get(
-    ["/uploads/files/:fileName", "/uploads/default/:fileName"],
+    ["/uploads/avatar/:fileName", "/uploads/default/:fileName"],
     (req, res) => {
       fileHandler(req, res);
     }
@@ -44,7 +44,7 @@ module.exports = (app) => {
 
   app.patch(
     ["/users/profile", `/users/:userGUID/profile`],
-    uploadFile.fields([{ name: "file", maxCount: 1 }]),
+    uploadFile.fields([{ name: "avatar", maxCount: 1 }]),
     async (req, res, next) => {
       await handleInputFiles(req);
       next();
